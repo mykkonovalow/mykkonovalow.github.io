@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collapsible Names Generator</title>
+
+    <!-- tweaked SIMPLE.CSS -->
+    <link rel="stylesheet" href="simple.css">
+    <link rel="stylesheet" href="collapsible-names.css">
+
+    <!-- HANDLEBAR.JS: temlating language -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <!-- My collapsible logic -->
+    <script type="text/javascript" src="folding.js"></script>
+    <!-- Name Generation -->
+    <script type="text/javascript" src="collapsible-names.js"></script>
+    <!-- LIVE.JS: update page on change -->
+    <!-- <script type="text/javascript" src="https://livejs.com/live.js"></script> -->
+</head>
+
+<body>
+    <header>
+        <h1>NAṀĖṠS</h1>
+        <p>Onomasticon of collapsible names</p>
+        <nav class="main">
+            <a href="/">About</a>
+            <a href="/currated_ames">Curated names</a>
+            <a href="/generator" class="current"><b>Explore!</b></a>
+            <a href="https://mykkonovalow.super.site//blog">Blog</a>
+            <a href="/support me">Support me</a>
+        </nav>
+    </header>
+
+    <form onsubmit="event.preventDefault();  start_name_generation();">
+        <legend>Name generatotion parameters</legend>
+        <label>
+            <span >Base word:</span>
+            <input type="text" name="base" id="base" autofocus>
+        </label>
+        <label>
+            <span>Sharred letters:</span>
+            <select name="depth">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected="selected" >3</option>
+            </select>
+        </label>
+        <label>
+            <span>Max name length, letters:</span>
+            <input type="number" min="6" max="100" name="length" value="11" id="length">
+        </label>
+
+        <div name="collapsible-area">
+            <button type="button" class="collapsible">Advanced options</button>
+            <div class="content">
+                <label>
+                    <span>Use base word as:</span>
+                    <select name="mode">
+                        <option value="prefix">prefix</option>
+                        <option value="suffix">suffix</option>
+                        <option selected="selected" value="both">prefix and suffix</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Word frequency filter:</span>
+                    <input type="number" step="0.01" min="0" max="10" name="freq" value="2.69">
+                </label>
+                <label>
+                    <span>Drop words without IPA:</span>
+                    <input type="checkbox" name="drop_ipa">
+                </label>
+                <label>
+                    <span>Drop fully-overlapping:</span>
+                    <input type="checkbox" name="drop_full_overlap" id="drop_full_overlap" checked>
+                </label>
+                <label>
+                    <span>Highlight shared letters:</span>
+                    <select name="decorator">
+                        <option value="dot" selected="selected">Dot diacritic</option>
+                        <option value="overline">Overline</option>
+                        <option value="underline">Underline</option>
+                        <option value="bold">Bold</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-elem">
+            <button name="generate_btn">Generate Names</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+
+
+    <div class="word-list disabled" id="generated_names">
+        <div class="word-section">
+            <div id=generated_title></div>
+            <div class="section-prefix">
+                <div id="section_prefix_stats"></div>
+                <div id="prefix_destination"></div>
+            </div>
+            <div class="section-suffix">
+                <div id="section_suffix_stats"></div>
+                <div id="suffix_destination"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="Handlebars">
+        <script id="base_template" type="text/x-handlebars-template">
+            <div class="word">
+                <div class="word-block-description">
+                    <span class="word-root" word-role="header">{{[0]}}</span>
+                    <span class="word-ipa">{{nullable [1]}}</span>
+                    <span class="word-freq">{{[3]}}</span>
+                </div>
+                <div class="word-block-glosses">
+                    {{#each [4]}}
+                    <span class="word-glosses">{{this}}</span>
+                    {{/each}}
+                </div>
+            </div>
+        </script>
+        <script id="affix_template" type="text/x-handlebars-template">
+            <div class="word-list-row">
+                <div class="word-root" word-role="new">{{{name}}}</div>
+                <div class="word">
+                    <div class="word-block-description">
+                        <span class="word-root" word-role="affix">{{affix.[0]}}</span>
+                        <span class="word-ipa">{{nullable affix.[1]}}</span>
+                        <span class="word-freq">{{affix.[3]}}</span>
+                    </div>
+                    <div class="word-block-glosses">
+                        {{#each affix.[4]}}
+                        <span class="word-glosses">{{this}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script id="stats_template" type="text/x-handlebars-template">
+            <h4>Names using "{{base}}" as {{mode}}</h4>
+            <div class="row">
+                <div class="column-left">
+                    Names generated:
+                </div>
+                <div class="column-right">
+                    {{generated_names}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="column-left">
+                    Discarded, too long:
+                </div>
+                <div class="column-right">
+                    <span class="stats-important">{{too_long}}</span> <span class="stats-nonimportant">(average length: {{float drop_length_avg}})</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column-left">
+                    Discarded, too infrequency:
+                </div>
+                <div class="column-right">
+                    <span class="stats-important">{{infrequent}}</span> <span class="stats-nonimportant">(average freq: {{float drop_freq_avg}})</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column-left">
+                    Discarded, full overlap:
+                </div>
+                <div class="column-right">
+                    {{nullable full_overlap}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="column-left">
+                    Discarded, no IPA:
+                </div>
+                <div class="column-right">
+                    {{nullable ipaless}}
+                </div>
+            </div>
+        </script>
+    </div>
+
+    <footer>
+        <h4>By <a href="https://mykkonovalow.super.site/">Myk Konovalow</a></h4>
+        <p>Built with <a href="https://simplecss.org/">Simple.css</a></p>
+    </footer>
+</body>
+</html>

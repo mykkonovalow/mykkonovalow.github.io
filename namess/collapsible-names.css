@@ -1,0 +1,283 @@
+:root,
+::backdrop {
+  --elem-width: 280px;
+  --elem-gap: 0.5em;
+  --default-padding: 0.5rem;
+}
+
+form  {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--elem-gap);
+  width: 100%;
+  margin: 1px;
+}
+
+.form-elem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--elem-gap);
+  width: 100%;
+  margin: 1px;
+}
+
+label > span {
+  text-align: right;
+  vertical-align: baseline;
+  padding: var(--default-padding) 0.9rem;
+  margin-bottom: var(--default-padding);
+  color: var(--text-light);
+  width: var(--elem-width);
+}
+
+label > input[type="checkbox"] {
+  margin-left: 0;
+  --default-border-radius: 1px;
+  margin-right: calc(var(--elem-width) - 2*var(--default-padding) - 2*var(--default-border-radius));
+}
+
+label > input, select {
+  text-align: left;
+  width: var(--elem-width);
+}
+
+label > input:hover, input[type="number"]:hover, input[type="checkbox"]:hover, select:hover {
+  border-color: var(--accent-hover);
+}
+
+.word-list-row:hover {
+  border: 1px solid var(--accent-hover);
+  border-radius: var(--standard-border-radius);
+}
+
+.section-suffix .word-list-row:hover {
+  border-color: var(--accent-blue);
+}
+
+button[name="generate_btn"] {
+  margin-left: 66px;
+}
+
+.row {
+  display: flex;
+  gap: 1.5em;
+  width: 100%;
+}
+
+.column-left {
+  align-items:center;
+  text-align: right;
+  color: var(--text-light);
+  flex: 1;
+}
+
+.column-right {
+  align-items:center;
+  text-align: left;
+  flex: 1;
+}
+
+
+/* Style the button that is used to open and close the collapsible content */
+div[name="collapsible-area"] {
+  width: 100%;
+}
+
+.collapsible {
+  width: 100%;
+  cursor: pointer;
+  border: 1px;
+  border-style: dashed;
+  background-color: var(--bg);
+  color: var(--text-light);
+  margin-top: var(--elem-gap);
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.collapsible:enabled:hover {
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+.collapsible:after {
+  content: " ";
+  background-image: linear-gradient(45deg, transparent 49%, var(--text) 51%),
+    linear-gradient(135deg, var(--text) 51%, transparent 49%);
+  background-position: calc(100% - 15px), calc(100% - 10px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-inline-end: 25px;
+}
+
+
+.collapsible.active {
+  border-radius: var(--standard-border-radius) var(--standard-border-radius) 0 0;
+}
+
+.collapsible.active:after {
+  background-image: linear-gradient(135deg, transparent 49%, var(--text) 51%),
+    linear-gradient(45deg, var(--text) 51%, transparent 49%);
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.content.active {
+  border: 1px;
+  border-style: dashed;
+  border-radius: 0 0 var(--standard-border-radius) var(--standard-border-radius);
+  background-color: var(--bg);
+  color: var(--text-light);
+  padding: var(--default-padding);
+}
+
+/* Word stuff */
+.word-list {
+  margin-top: 4rem;
+  padding: 2rem 0rem 0rem 0rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5em;
+  row-gap: 28px;
+  align-items:center;
+  justify-content:center;
+  border-top: 1px solid var(--border);
+}
+
+.word-list.disabled {
+  transform: scale(0);
+}
+
+.word-list-row {
+  width: 100%;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  gap: 0.5em;
+  margin: 0.5em;
+}
+
+.word {
+  display: flex;
+  flex: 1;
+  width: 100%;
+
+  border-radius: var(--standard-border-radius);
+  background-color: var(--accent-bg);
+  padding: 5px 0px;
+}
+
+.word-block-description {
+  flex: 1;
+  display: flex;
+
+  color: var(--text);
+  justify-content: space-evenly; 
+  align-items:center;
+}
+
+.word-block-glosses {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  line-height: normal;
+  font-size: 0.96rem;
+  gap: 0.5rem;
+
+  color: var(--text-light);
+  border-left: 5px solid var(--bg);
+  padding: 5px 10px; /*top-bottom & left-right*/
+}
+
+.word-root { /* generic display + start of a block */
+  font-size: 2rem;
+  color: var(--code);
+}
+
+.word-root[word-role="new"] {
+    padding-left: 10px;
+    width: 12ch;
+    font-size: 1.44rem;
+    text-align: center;
+}
+
+.section-prefix .word-root[word-role="new"] {
+    color: var(--accent);
+}
+
+.section-suffix .word-root[word-role="new"] {
+    color: var(--accent-blue);
+}
+
+.word-root[word-role="affix"]{
+    color: initial;
+    font-weight: bold;
+    font-size: 1.15rem;
+}
+
+.word-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-prefix {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-suffix {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-of-contents {
+  grid-column: 1;
+  color: var(--text-light);
+  padding-left: 10px;
+  padding-top: var(--standard-border-radius)
+}
+
+.section-stats-view {
+  grid-column: 3;
+}
+
+.section-prefix h4 {
+  color: var(--accent);
+  width: 100%;
+  text-align: center;
+  margin: 1rem 0 0 0;
+}
+
+.section-suffix h4 {
+  color: var(--accent-blue);
+  width: 100%;
+  text-align: center;
+  margin: 0 1rem 0 0;
+}
+
+.stats-nonimportant {
+  color: var(--text-light);
+  font-size: 0.96rem;
+}
+
+.stats-important {
+  display: inline-block;
+  min-width: 2.5rem;
+}
