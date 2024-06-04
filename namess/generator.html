@@ -25,11 +25,11 @@
         <h1>NAṀĖṠS</h1>
         <p>Onomasticon of collapsible names</p>
         <nav class="main">
-            <a href="/">About</a>
-            <a href="/currated_ames">Curated names</a>
-            <a href="/generator" class="current"><b>Explore!</b></a>
+            <a href="/main.html">About</a>
+            <a href="/currated_names.html">Curated names</a>
+            <a href="/generator.html" class="current"><b>Explore!</b></a>
             <a href="https://mykkonovalow.super.site//blog">Blog</a>
-            <a href="/support me">Support me</a>
+            <a href="/support.html">Support me</a>
         </nav>
     </header>
 
@@ -78,7 +78,7 @@
                 <label>
                     <span>Highlight shared letters:</span>
                     <select name="decorator">
-                        <option value="dot" selected="selected">Dot diacritic</option>
+                        <option value="dot" selected="selected">Dot diacritic (small caps)</option>
                         <option value="overline">Overline</option>
                         <option value="underline">Underline</option>
                         <option value="bold">Bold</option>
@@ -147,7 +147,7 @@
                     Names generated:
                 </div>
                 <div class="column-right">
-                    {{generated_names}}
+                    {{skippable generated_names}}
                 </div>
             </div>
             <div class="row">
@@ -155,7 +155,7 @@
                     Discarded, too long:
                 </div>
                 <div class="column-right">
-                    <span class="stats-important">{{too_long}}</span> <span class="stats-nonimportant">(average length: {{float drop_length_avg}})</span>
+                    <span class="stats-important">{{skippable too_long}}</span> <span class="stats-nonimportant">(average length: {{nullable_float drop_length_avg}})</span>
                 </div>
             </div>
             <div class="row">
@@ -163,7 +163,7 @@
                     Discarded, too infrequency:
                 </div>
                 <div class="column-right">
-                    <span class="stats-important">{{infrequent}}</span> <span class="stats-nonimportant">(average freq: {{float drop_freq_avg}})</span>
+                    <span class="stats-important">{{skippable infrequent}}</span> <span class="stats-nonimportant">(average freq: {{nullable_float drop_freq_avg}})</span>
                 </div>
             </div>
             <div class="row">
@@ -171,7 +171,7 @@
                     Discarded, full overlap:
                 </div>
                 <div class="column-right">
-                    {{nullable full_overlap}}
+                    {{skippable full_overlap}}
                 </div>
             </div>
             <div class="row">
@@ -179,7 +179,7 @@
                     Discarded, no IPA:
                 </div>
                 <div class="column-right">
-                    {{nullable ipaless}}
+                    {{skippable ipaless}}
                 </div>
             </div>
         </script>

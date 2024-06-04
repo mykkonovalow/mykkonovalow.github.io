@@ -54,14 +54,6 @@ label > input:hover, input[type="number"]:hover, input[type="checkbox"]:hover, s
   border-color: var(--accent-hover);
 }
 
-.word-list-row:hover {
-  border: 1px solid var(--accent-hover);
-  border-radius: var(--standard-border-radius);
-}
-
-.section-suffix .word-list-row:hover {
-  border-color: var(--accent-blue);
-}
 
 button[name="generate_btn"] {
   margin-left: 66px;
@@ -170,6 +162,16 @@ div[name="collapsible-area"] {
   justify-content:center;
   gap: 0.5em;
   margin: 0.5em;
+  border: 1px solid var(--bg);
+  border-radius: var(--standard-border-radius);
+}
+
+.word-list-row:hover {
+  border: 1px solid var(--accent-hover);
+}
+
+.section-suffix .word-list-row:hover {
+  border-color: var(--accent-blue);
 }
 
 .word {
@@ -280,4 +282,27 @@ div[name="collapsible-area"] {
 .stats-important {
   display: inline-block;
   min-width: 2.5rem;
+}
+
+
+span.dot-over-letter {
+  position: relative;
+  display: inline-block;
+}
+
+
+span.dot-over-letter::after {
+  content: '';
+  position: absolute;
+  bottom: 1.6rem; /* Adjust this value to position the dot as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px; /* Adjust the size of the dot */
+  height: 2px; /* Adjust the size of the dot */
+  background-color: var(--accent); /* Dot color */
+  border-radius: 50%;
+}
+
+.section-suffix span.dot-over-letter::after {
+  background-color: var(--accent-blue); /* Dot color */
 }

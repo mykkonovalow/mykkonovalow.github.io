@@ -30,14 +30,23 @@ Handlebars.registerHelper("nullable", function(val) {
     return val;
 });
 
+Handlebars.registerHelper("skippable", function(val) {
+    if(val === undefined || val === null || val == "") {
+        return "0";
+    }
+    return val;
+});
+
 
 Handlebars.registerHelper("len", function(val) {
     return Object.keys(val).length;
 });
 
-Handlebars.registerHelper('float', function(num) {
+Handlebars.registerHelper('nullable_float', function(num) {
     if (num !== undefined)
         return num.toFixed(2);
+    else
+        return "<NA>";
 });
 
 addEventListener("DOMContentLoaded", (event) => {
@@ -64,29 +73,30 @@ async function display_name(name, affix, display_path){
     });
 
     const nameElem = document.getElementById(display_path + "_destination")
+    nameElem.style.fontVariant = "small-caps";
     nameElem.innerHTML += nameResult;
 }
 
 function display_stats(base, mode, log_obj) {
-    let statsResult = `<p class="notice">No names were generated with "${base}" as ${mode}</p>`;
+    if (Object.hasOwn(log_obj, "drop_freq_avg"))
+        log_obj.drop_freq_avg = log_obj.drop_freq_avg / log_obj.infrequent
+    if (Object.hasOwn(log_obj, "drop_length_avg"))
+        log_obj.drop_length_avg = log_obj.drop_length_avg / log_obj.too_long
+    
 
-    const have_made_names = Object.hasOwn(log_obj, "generated_names");
-    if (have_made_names) {
-            if (Object.hasOwn(log_obj, "drop_freq_avg"))
-                log_obj.drop_freq_avg = log_obj.drop_freq_avg / log_obj.infrequent
-            if (Object.hasOwn(log_obj, "drop_length_avg"))
-                log_obj.drop_length_avg = log_obj.drop_length_avg / log_obj.too_long
+    log_obj.base = base;
+    log_obj.mode = mode;
 
-        log_obj.base = base;
-        log_obj.mode = mode;
-
-        const statsTemplate = document.getElementById("stats_template").innerHTML;
-        const statsCompile = Handlebars.compile(statsTemplate);
-        statsResult = statsCompile(log_obj);
-    }
+    const statsTemplate = document.getElementById("stats_template").innerHTML;
+    const statsCompile = Handlebars.compile(statsTemplate);
+    const statsResult = statsCompile(log_obj);
 
     const statsElem = document.getElementById("section_" + mode + "_stats");
     statsElem.innerHTML = statsResult;
+
+    const no_names = !Object.hasOwn(log_obj, "generated_names");
+    if (no_names)
+        statsElem.innerHTML += `<p class="notice">No names were generated with "${base}" as ${mode}</p>`;
 }
 
 // Handlebar.js section ends
@@ -179,10 +189,7 @@ function name_decorator_dot(str) {
     decorated = ""
     
     for (let i = 0; i < str.length; i++) {
-        if (str[i] == "i")
-            decorated += "ï";
-        else
-            decorated += str[i] + "̇";
+        decorated += '<span class="dot-over-letter">' + str[i] + '</span>';
     }
 
     return decorated;
@@ -225,8 +232,9 @@ function construct_names(args, candidates, name_maker, mode){
     for (var i = 0; i < candidates.length; i++) {
         affix = candidates[i];
         new_name = name_maker(args.base.toLowerCase(), affix[0].toLowerCase(), args.depth, name_decorator);
+        use_small_caps = args.decorator == "dot";
 
-        display_name(new_name, affix, mode);
+        display_name(new_name, affix, mode, use_small_caps);
     }
 }
 
