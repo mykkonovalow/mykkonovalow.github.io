@@ -217,6 +217,7 @@ div[name="collapsible-area"] {
     width: 12ch;
     font-size: 1.44rem;
     text-align: center;
+    font-variant: small-caps;
 }
 
 .section-prefix .word-root[word-role="new"] {

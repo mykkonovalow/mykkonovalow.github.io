@@ -73,7 +73,6 @@ async function display_name(name, affix, display_path){
     });
 
     const nameElem = document.getElementById(display_path + "_destination")
-    nameElem.style.fontVariant = "small-caps";
     nameElem.innerHTML += nameResult;
 }
 
@@ -232,6 +231,7 @@ function construct_names(args, candidates, name_maker, mode){
     for (var i = 0; i < candidates.length; i++) {
         affix = candidates[i];
         new_name = name_maker(args.base.toLowerCase(), affix[0].toLowerCase(), args.depth, name_decorator);
+
         use_small_caps = args.decorator == "dot";
 
         display_name(new_name, affix, mode, use_small_caps);
