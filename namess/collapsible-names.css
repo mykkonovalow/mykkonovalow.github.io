@@ -5,6 +5,26 @@
   --default-padding: 0.5rem;
 }
 
+.navbar_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+a.navbar-icon svg {
+  vertical-align: sub;
+  padding-right: .25rem;
+  display: inline-block;
+  width: 1em;
+  height: 1.3em;
+  margin-right: 0.2rem;
+  stroke-width: 0;
+  stroke: var(--accent);
+  fill: var(--accent);
+}
+
+
 form  {
   display: flex;
   flex-direction: column;
@@ -306,4 +326,9 @@ span.dot-over-letter::after {
 
 .section-suffix span.dot-over-letter::after {
   background-color: var(--accent-blue); /* Dot color */
+}
+
+.top-button:after {
+  background-image: linear-gradient(135deg, transparent 49%, var(--text) 51%),
+    linear-gradient(45deg, var(--text) 51%, transparent 49%);
 }
