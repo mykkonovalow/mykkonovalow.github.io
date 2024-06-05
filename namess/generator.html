@@ -25,9 +25,9 @@
         <h1>NAṀĖṠS</h1>
         <p>Onomasticon of collapsible names</p>
         <nav class="main">
-            <a href="/main.html">About</a>
-            <a href="/currated_names.html">Curated names</a>
-            <a href="/generator.html" class="current"><b>Explore!</b></a>
+            <a href="main.html">About</a>
+            <a href="currated_names.html">Curated names</a>
+            <a href="generator.html" class="current"><b>Explore!</b></a>
             <a href="https://mykkonovalow.super.site/">Blog</a>
             <a href="https://www.buymeacoffee.com/mykkonovalow" class="navbar-icon">
                 <!-- <img src="/img/bmc-logo.svg" alt="[Buy Me A Coffee]"> -->
@@ -41,12 +41,12 @@
     </header>
 
     <form onsubmit="event.preventDefault();  start_name_generation();">
-        <legend>Name generatotion parameters</legend>
-        <label>
-            <span >Base word:</span>
+        <legend><b>Name generation parameters</b></legend>
+        <label title="This word will be used to generate collapsible names">
+            <span>Base word:</span>
             <input type="text" name="base" id="base" autofocus>
         </label>
-        <label>
+        <label title="Indicates the number of shared letters. For example: Namess = names + mess -> 3 shared letters.">
             <span>Sharred letters:</span>
             <select name="depth">
                 <option value="1">1</option>
@@ -54,7 +54,7 @@
                 <option value="3" selected="selected" >3</option>
             </select>
         </label>
-        <label>
+        <label title="Names longer than specified number will be discarded">
             <span>Max name length, letters:</span>
             <input type="number" min="6" max="100" name="length" value="11" id="length">
         </label>
@@ -62,7 +62,7 @@
         <div name="collapsible-area">
             <button type="button" class="collapsible">Advanced options</button>
             <div class="content">
-                <label>
+                <label title="Determines position of the base word in generated names">
                     <span>Use base word as:</span>
                     <select name="mode">
                         <option value="prefix">prefix</option>
@@ -70,19 +70,19 @@
                         <option selected="selected" value="both">prefix and suffix</option>
                     </select>
                 </label>
-                <label>
+                <label title="Frequency with which a candidate word is used.">
                     <span>Word frequency filter:</span>
                     <input type="number" step="0.01" min="0" max="10" name="freq" value="2.69">
                 </label>
-                <label>
-                    <span>Drop words without IPA:</span>
+                <label title="Some candidate words might lack pronunciation">
+                    <span>Require pronunciation:</span>
                     <input type="checkbox" name="drop_ipa">
                 </label>
-                <label>
+                <label title="'Den' is fully-overlapped in 'Dense'">
                     <span>Drop fully-overlapping:</span>
                     <input type="checkbox" name="drop_full_overlap" id="drop_full_overlap" checked>
                 </label>
-                <label>
+                <label title="Method of how to indicate shared letters">
                     <span>Highlight shared letters:</span>
                     <select name="decorator">
                         <option value="dot" selected="selected">Dot diacritic</option>
