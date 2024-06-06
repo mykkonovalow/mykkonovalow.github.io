@@ -9,7 +9,7 @@ var LOG_SUFFIX = {}
 
 // Populate the base word input
 addEventListener("DOMContentLoaded", (event) => {
-    const curated_bases = ["Valley", "Creek", "Basin", "Den", "Hill", "Ridge", "Mere", "Borough"]
+    const curated_bases = ["Valley", "Creek", "Basin", "Den", "Hill", "Ridge", "Mere", "Borough", "Oath"]
     const suggested_base = curated_bases[Math.floor(Math.random() * curated_bases.length)];
 
     const base_elem = document.getElementById("base");
