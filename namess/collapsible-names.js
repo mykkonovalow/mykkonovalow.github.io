@@ -7,6 +7,7 @@ var LOG_PREFIX = {}
 var LOG_SUFFIX = {}
 
 
+
 // Populate the base word input
 addEventListener("DOMContentLoaded", (event) => {
     const curated_bases = ["Valley", "Creek", "Basin", "Den", "Hill", "Ridge", "Mere", "Borough", "Oath"]
@@ -76,6 +77,9 @@ async function display_name(name, affix, display_path){
     nameElem.innerHTML += nameResult;
 }
 
+
+
+
 function display_stats(base, mode, log_obj) {
     if (Object.hasOwn(log_obj, "drop_freq_avg"))
         log_obj.drop_freq_avg = log_obj.drop_freq_avg / log_obj.infrequent
@@ -95,7 +99,7 @@ function display_stats(base, mode, log_obj) {
 
     const no_names = !Object.hasOwn(log_obj, "generated_names");
     if (no_names)
-        statsElem.innerHTML += `<p class="notice">No names were generated with "${base}" as ${mode}</p>`;
+            statsElem.innerHTML += `<p class="notice">No names were generated with "${base}" as ${mode}</p>`;
 }
 
 // Handlebar.js section ends
@@ -194,6 +198,17 @@ function name_decorator_dot(str) {
     return decorated;
 }
 
+function name_decorator_dot_diacritics(str) {
+    decorated = ""
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] == "i")
+            decorated += "ï";
+        else
+            decorated += str[i] + '̇';
+    }
+    return decorated;
+}
+
 function name_decorator_overline(str) {
     decorated = '<span style="text-decoration: overline">' + str + "</span>"
 
@@ -226,6 +241,8 @@ function construct_names(args, candidates, name_maker, mode){
         name_decorator = name_decorator_underline;
     else if (args.decorator == "bold")
         name_decorator = name_decorator_bold;
+    else if (args.decorator == "dot-diacritic")
+        name_decorator = name_decorator_dot_diacritics;
 
 
     for (var i = 0; i < candidates.length; i++) {
@@ -238,11 +255,20 @@ function construct_names(args, candidates, name_maker, mode){
     }
 }
 
+function sort_names_by_freq(a, b){
+    // Sort Words in discending order by frequency
+    return b[3] - a[3];
+}
+
 function generate_names(args, tree, letter_second_layer, letter_third_layer, name_maker, mode, log_obj) {
     const unfiltered_candidates = flatten_tree(args, tree, letter_second_layer, letter_third_layer);
     
-    if( unfiltered_candidates.length > 0) {
+    if (unfiltered_candidates.length > 0) {
         const filtered_candidates = filter_candidates(args, unfiltered_candidates, log_obj);
+        if (args.display_order == "frequency"){
+            console.log("sort by frequency")
+            filtered_candidates.sort(sort_names_by_freq);
+        }
         construct_names(args, filtered_candidates, name_maker, mode);
     }
     
