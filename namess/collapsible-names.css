@@ -21,7 +21,7 @@
   flex-direction: column;
 }
 
-.icon svg, img {
+.icon > svg {
   vertical-align: sub;
   padding-right: .25rem;
   display: inline-block;
