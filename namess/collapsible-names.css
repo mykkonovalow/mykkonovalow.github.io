@@ -3,6 +3,7 @@
   --elem-width: 280px;
   --elem-gap: 0.5em;
   --default-padding: 0.5rem;
+  --icon-inline-size: 1.5rem;
 }
 
 .prevent-select {
@@ -31,6 +32,53 @@
   stroke-width: 0;
   stroke: var(--accent);
   fill: var(--accent);
+}
+
+.svg-icon {
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  background: var(--accent);
+}
+
+.icon-banner {
+  mask-image: url("/img/banner.svg");
+  height: 13rem;
+  width: 27rem;
+  margin: 1rem auto;
+}
+
+.icon-donate {
+  mask-image: url("/img/donate-01.svg");
+  background: currentColor;
+  height: var(--icon-inline-size);
+  width: var(--icon-inline-size);
+  margin-right: 0.2rem;
+  margin-bottom: .25rem;
+
+  vertical-align: bottom;
+  padding-right: .25rem;
+  display: inline-block;
+}
+
+.buymeacoffe-button {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-buymeacoffee {
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--standard-border-radius);
+  width: 15rem;
+  height: auto;
+  padding: .5rem;
+}
+
+.icon-buymeacoffee:hover {
+  border-color: var(--accent-hover);
+  color: var(--accent-hover);
+  cursor: pointer;
 }
 
 
@@ -171,6 +219,7 @@ div[name="collapsible-area"] {
 .word-list {
   margin-top: 4rem;
   padding: 2rem 0rem 0rem 0rem;
+  min-height: 21rem;
   display: flex;
   flex-direction: column;
   margin-top: 0.5em;
