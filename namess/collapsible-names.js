@@ -266,7 +266,6 @@ function generate_names(args, tree, letter_second_layer, letter_third_layer, nam
     if (unfiltered_candidates.length > 0) {
         const filtered_candidates = filter_candidates(args, unfiltered_candidates, log_obj);
         if (args.display_order == "frequency"){
-            console.log("sort by frequency")
             filtered_candidates.sort(sort_names_by_freq);
         }
         construct_names(args, filtered_candidates, name_maker, mode);
@@ -348,9 +347,13 @@ function reset_generation(){
     LOG_SUFFIX = {};
 }
 
+function show_jump_controls(){
+    document.getElementById("jump_controls").classList.remove("hidden");
+}
 
 function start_name_generation() {
     reset_generation();
+    show_jump_controls();
 
     const names_section = document.getElementById("generated_names");
     names_section.scrollIntoView({
