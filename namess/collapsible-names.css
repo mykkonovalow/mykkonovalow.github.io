@@ -28,6 +28,7 @@
 @media only screen and (max-device-width : 55rem) {
     .jump {
         position: inherit;
+        border-radius: var(--standard-border-radius);
     }
 }
 
@@ -62,7 +63,7 @@
 .icon-banner {
   mask-image: url("/img/banner.svg");
   height: 13rem;
-  width: 27rem;
+  width: min(27rem, 90%);
   margin: 1rem auto;
 }
 
@@ -283,10 +284,17 @@ div[name="collapsible-area"] {
 .word-block-description {
   flex: 1;
   display: flex;
+  overflow: auto;
 
   color: var(--text);
   justify-content: space-evenly; 
   align-items:center;
+}
+
+@media only screen and (max-device-width : 55rem) {
+  .word-block-description {
+    flex-direction: column;
+  }
 }
 
 .word-block-glosses {
