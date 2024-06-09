@@ -1,103 +1,7 @@
-:root,
-::backdrop {
-  --elem-width: 280px;
-  --elem-gap: 0.5em;
-  --default-padding: 0.5rem;
-  --icon-inline-size: 1.5rem;
-}
-
 .prevent-select {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-}
-
-.jump {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border);
-  border-radius: var(--standard-border-radius) 0px 0px var(--standard-border-radius);
-  padding: 0.5rem 1rem;
-  margin-bottom: 0.5rem;
-}
-
-@media only screen and (max-device-width : 55rem) {
-    .jump {
-        position: inherit;
-        border-radius: var(--standard-border-radius);
-    }
-}
-
-.jump.hidden {
-  max-height: 0;
-  overflow: hidden;
-  border: 0px;
-  padding: 0px;
-  margin: 0px;
-  transition: max-height 0.2s ease-out;
-}
-
-.icon > svg {
-  vertical-align: sub;
-  padding-right: .25rem;
-  display: inline-block;
-  width: 1em;
-  height: 1.3em;
-  margin-right: 0.2rem;
-  stroke-width: 0;
-  stroke: var(--accent);
-  fill: var(--accent);
-}
-
-.svg-icon {
-  mask-size: contain;
-  mask-position: center;
-  mask-repeat: no-repeat;
-  background: var(--accent);
-}
-
-.icon-banner {
-  mask-image: url("/img/banner.svg");
-  height: 13rem;
-  width: min(27rem, 90%);
-  margin: 1rem auto;
-}
-
-.icon-donate {
-  mask-image: url("/img/donate-01.svg");
-  background: currentColor;
-  height: var(--icon-inline-size);
-  width: var(--icon-inline-size);
-  margin-right: 0.2rem;
-  margin-bottom: .25rem;
-
-  vertical-align: bottom;
-  padding-right: .25rem;
-  display: inline-block;
-}
-
-.buymeacoffe-button {
-  display: flex;
-  justify-content: center;
-}
-
-.icon-buymeacoffee {
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: var(--standard-border-radius);
-  width: 15rem;
-  height: auto;
-  padding: .5rem;
-}
-
-.icon-buymeacoffee:hover {
-  border-color: var(--accent-hover);
-  color: var(--accent-hover);
-  cursor: pointer;
 }
 
 
@@ -154,26 +58,6 @@ label > input:hover, input[type="number"]:hover, input[type="checkbox"]:hover, s
 button[name="generate_btn"] {
   margin-left: 66px;
 }
-
-.row {
-  display: flex;
-  gap: 1.5em;
-  width: 100%;
-}
-
-.column-left {
-  align-items:center;
-  text-align: right;
-  color: var(--text-light);
-  flex: 1;
-}
-
-.column-right {
-  align-items:center;
-  text-align: left;
-  flex: 1;
-}
-
 
 /* Style the button that is used to open and close the collapsible content */
 div[name="collapsible-area"] {
@@ -352,13 +236,6 @@ div[name="collapsible-area"] {
 .section-suffix {
   display: flex;
   flex-direction: column;
-}
-
-.table-of-contents {
-  grid-column: 1;
-  color: var(--text-light);
-  padding-left: 10px;
-  padding-top: var(--standard-border-radius)
 }
 
 .section-stats-view {
