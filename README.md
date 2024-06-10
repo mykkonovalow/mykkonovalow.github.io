@@ -1,6 +1,6 @@
 # Github Pages of Myk Konovalow
 
-[Blog](http://mykkonovalow.notion.site/)
+[Blog](http://blog.mykkonovalow.com)
 
 ## Projects
-- [Naṁėṡs: Onamasticon of Collapsible Names](https://mykkonovalow.github.io/namess/main.html)
+- [Naṁėṡs: Onamasticon of Collapsible Names](https://www.mykkonovalow.com/namess/index.html)
