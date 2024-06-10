@@ -402,12 +402,13 @@ figure > table {
 td,
 th {
   border: 1px solid var(--border);
-  text-align: start;
+  text-align: center;
   padding: 0.5rem;
 }
 
 th {
   background-color: var(--accent-bg);
+  width: 33%;
   font-weight: bold;
 }
 

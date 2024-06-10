@@ -12,6 +12,8 @@
 
     <!-- HANDLEBAR.JS: temlating language -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <!-- Populate the tables -->
+    <script type="text/javascript" src="js/curated-names.js"></script>
 </head>
 
 <body>
@@ -30,8 +32,38 @@
     </header>
 
     <main>
-        
+        <table id="names2">
+            <caption>Two shared letters</caption>
+        </table>
+        <table id="names3">
+            <caption>Three shared letters</caption>
+        </table>
+        <table id="names1">
+            <caption>One shared letters</caption>
+        </table>
     </main>
+    </main>
+
+    <div id="Handlebars">
+        <script id="table_template" type="text/x-handlebars-template">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Root 1</th>
+                    <th>Root 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each this}}
+                <tr>
+                    <td>{{this.[0]}}</th>
+                    <td>{{this.[1]}}</th>
+                    <td>{{this.[2]}}</th>
+                </tr>
+                {{/each}}
+            </tbody>
+        </script>
+    </div>
     
 
     <footer>

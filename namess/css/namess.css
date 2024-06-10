@@ -113,3 +113,11 @@
   text-align: left;
   flex: 1;
 }
+
+main > table {
+  width: 78%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+  text-align: center;
+}

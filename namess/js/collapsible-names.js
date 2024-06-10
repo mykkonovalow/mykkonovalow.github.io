@@ -61,7 +61,7 @@ addEventListener("DOMContentLoaded", (event) => {
 });
 
 
-async function display_base(base){
+async function display_base(base) {
     const baseResult = globalThis.baseCompile(base);
     globalThis.baseElem.innerHTML = baseResult;
     globalThis.namesElem.classList.remove("disabled");
