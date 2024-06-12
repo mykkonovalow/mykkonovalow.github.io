@@ -21,10 +21,7 @@ function populate_table(tableName, tsv, template) {
         data[i] = word;
     }
 
-    console.log(tableName);
-    console.log(data);
     const tableContent = template(data);
-    console.log(tableContent);
     const destinationElem = document.getElementById(tableName);
     destinationElem.innerHTML += tableContent;    
 }

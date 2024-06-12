@@ -256,7 +256,7 @@ function construct_names(args, candidates, name_maker, mode){
 }
 
 function sort_names_by_freq(a, b){
-    // Sort Words in discending order by frequency
+    // Sort Words by frequency, in descending order
     return b[3] - a[3];
 }
 
@@ -281,11 +281,7 @@ async function generate_prefixal_names(args) {
     const prelast_letter = base.charAt(base.length - 2)
     const preprelast_letter = base.charAt(base.length - 3)
 
-    var dict_letter = preprelast_letter;
-    if (args.depth == 2)
-        dict_letter = prelast_letter
-    else if (args.depth == 1)
-        dict_letter = last_letter
+    var dict_letter = base.charAt(base.length - args.depth);
     const path = `${DICT_PATH_STRAIGHT}/${dict_letter}.json`;
     
     await fetch(path)

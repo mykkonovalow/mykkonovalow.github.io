@@ -7,18 +7,18 @@
     <title>Collapsible Names Generator</title>
 
     <!-- tweaked SIMPLE.CSS -->
-    <link rel="stylesheet" href="css/simple.css">
-    <link rel="stylesheet" href="css/namess.css">
+    <link rel="stylesheet" href="/css/simple.css">
+    <link rel="stylesheet" href="/css/my.css">
     <link rel="stylesheet" href="css/collapsible-names.css">
 
     <!-- HANDLEBAR.JS: temlating language -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <!-- My collapsible logic -->
-    <script type="text/javascript" src="js/folding.js"></script>
+    <script type="text/javascript" src="/js/folding.js"></script>
+    <!-- My interactive BuyMeACofee button -->
+    <script type="text/javascript" src="/js/bmc-banner.js"></script>
     <!-- Name Generation -->
     <script type="text/javascript" src="js/collapsible-names.js"></script>
-    <!-- My interactive BuyMeACofee button -->
-    <script type="text/javascript" src="js/bmc-banner.js"></script>
 </head>
 
 <body>
@@ -171,7 +171,7 @@
             </div>
             <div class="row">
                 <div class="column-left">
-                    Discarded, too infrequency:
+                    Discarded, too infrequent:
                 </div>
                 <div class="column-right">
                     <span class="stats-important">{{skippable infrequent}}</span> <span class="stats-nonimportant" title="Average frequency of the dropped words">(average freq: {{nullable_float drop_freq_avg}})</span>

@@ -6,6 +6,10 @@
   --icon-inline-size: 1.5rem;
 }
 
+header > h1 {
+  color: var(--accent);
+}
+
 
 .jump {
   position: fixed;
