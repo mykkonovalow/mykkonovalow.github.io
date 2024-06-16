@@ -50,6 +50,19 @@ Handlebars.registerHelper('nullable_float', function(num) {
         return "<NA>";
 });
 
+Handlebars.registerHelper("overlap_handler", function(affix) {
+    // adjust display mode for too wide strigs
+    nam_len = affix[0].length;
+    ipa_len = 4;
+    if (affix[1] !== undefined && affix[1] !== null)
+        ipa_len = affix[1].length
+    if (nam_len + ipa_len > 20) {
+        return " word-block-description-vertical"
+    }
+
+    return "";
+});
+
 addEventListener("DOMContentLoaded", (event) => {
     const baseTemplate = document.getElementById("base_template").innerHTML;
     globalThis.baseCompile = Handlebars.compile(baseTemplate);
@@ -110,18 +123,22 @@ function flatten_tree(args, tree, letter_second_layer, letter_third_layer) {
     // The tree is structured as three nested dicts; The last one has a list as its value
     var candidates = [];
 
-    if (args.depth == 1) {
-        for (let second_layer_key in tree) {
-            for (let third_layer_key in tree[second_layer_key]) {
-                candidates = candidates.concat(tree[second_layer_key][third_layer_key]);
+    try {
+        if (args.depth == 1) {
+            for (let second_layer_key in tree) {
+                for (let third_layer_key in tree[second_layer_key]) {
+                    candidates = candidates.concat(tree[second_layer_key][third_layer_key]);
+                }
             }
+        } else if (args.depth == 2) {
+            for (let i in tree[letter_third_layer]) {
+                candidates = candidates.concat(tree[letter_third_layer][i]);
+            }
+        } else {
+            candidates = tree[letter_second_layer][letter_third_layer];
         }
-    } else if (args.depth == 2) {
-        for (let i in tree[letter_third_layer]) {
-            candidates = candidates.concat(tree[letter_third_layer][i]);
-        }
-    } else {
-        candidates = tree[letter_second_layer][letter_third_layer];
+    } catch (e) {
+        candidates = [];
     }
 
     if (typeof candidates === 'undefined')
@@ -280,6 +297,7 @@ async function generate_prefixal_names(args) {
     const last_letter = base.charAt(base.length - 1)
     const prelast_letter = base.charAt(base.length - 2)
     const preprelast_letter = base.charAt(base.length - 3)
+
 
     var dict_letter = base.charAt(base.length - args.depth);
     const path = `${DICT_PATH_STRAIGHT}/${dict_letter}.json`;

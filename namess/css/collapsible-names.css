@@ -181,6 +181,10 @@ div[name="collapsible-area"] {
   }
 }
 
+.word-block-description-vertical {
+  flex-direction: column;
+}
+
 .word-block-glosses {
   flex: 1.5;
   display: flex;
